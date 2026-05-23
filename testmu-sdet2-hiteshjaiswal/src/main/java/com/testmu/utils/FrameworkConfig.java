@@ -18,6 +18,9 @@ public interface FrameworkConfig extends Config {
     @Key("headless")
     String headless();
 
+    @Key("browser")
+    String browser();
+
     @Key("${environment}.url")
     String url();
 
