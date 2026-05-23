@@ -15,6 +15,9 @@ public interface FrameworkConfig extends Config {
     @DefaultValue("dev")
     String environment();
 
+    @Key("headless")
+    String headless();
+
     @Key("${environment}.url")
     String url();
 
