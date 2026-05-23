@@ -8,10 +8,21 @@
     <artifactId>testmu-sdet2-hiteshjaiswal</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+<dependencies>
+
+<!--    i have used this to make the properties more cleaner and reusable -->
+    <dependency>
+        <groupId>org.aeonbits.owner</groupId>
+        <artifactId>owner</artifactId>
+        <version>1.0.12</version>
+    </dependency>
+</dependencies>
 </project>
