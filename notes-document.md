@@ -10,3 +10,6 @@
 - creating browserfactory
 - helpers
 - basepage
+
+- note: helpers need to decided accoring to need initial approach is to have wait helper, page holder, mouse helper, action helper will decide api seprately also improve helper according to need
+- 
