@@ -1,6 +1,6 @@
 # testmu-sdet2-hiteshjaiswal
 
-#TechStack 
+# TechStack 
 java 
 maven
 selenium
@@ -8,16 +8,35 @@ RestAssured
 TestNG
 ExtendReports
 
-#framework architecture
+# framework architecture
 ui
 api
 integration
 pom designs
 
-#planned feature
+# planned feature
 cross browser 
 retry
 remotewebdriver launch
 ci/cd pipeline integration
+
+# folder structure
+main/
+base
+capabilities
+constant
+listener
+pages
+report
+utils
+
+resource/
+testdata
+project.properties
+
+test/
+ui
+api
+integration
 
 
