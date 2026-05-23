@@ -1,42 +1,42 @@
 # testmu-sdet2-hiteshjaiswal
 
 # TechStack 
-java 
-maven
-selenium
-RestAssured
-TestNG
-ExtendReports
+- java 
+- maven
+- selenium
+- RestAssured
+- TestNG
+- ExtendReports
 
 # framework architecture
-ui
-api
-integration
-pom designs
+- ui
+- api
+- integration
+- pom designs
 
 # planned feature
-cross browser 
-retry
-remotewebdriver launch
-ci/cd pipeline integration
+- cross browser 
+- retry
+- remotewebdriver launch
+- ci/cd pipeline integration
 
 # folder structure
-main/
-base
-capabilities
-constant
-listener
-pages
-report
-utils
+- main
+- base
+- capabilities
+- constant
+- listener
+- pages
+- report
+- utils
 
-resource/
-testdata
-project.properties
+- resource/
+- testdata
+- project.properties
 
-test/
-ui
-api
-integration
+- test/
+- ui
+- api
+- integration
 
 
