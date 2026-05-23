@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Wait {
     private final PageHolder pageHolder = new PageHolder();
-    private static Logger Log =    LogManager.getLogger(Wait.class.getName());
+    private static Logger Log = LogManager.getLogger(Wait.class.getName());
 
     public void waitTillElementIsVisibleAndClickable(WebElement element) {
         WebDriverWait wait = new WebDriverWait(pageHolder.getDriver(), Pause.duration(Pause.SMALL));
