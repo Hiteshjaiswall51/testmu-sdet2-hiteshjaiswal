@@ -22,8 +22,8 @@
 
 # folder structure
 - main
+- helper
 - base
-- capabilities
 - constant
 - listener
 - pages
