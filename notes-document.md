@@ -13,5 +13,6 @@
 
 - note: helpers need to decided accoring to need initial approach is to have wait helper, page holder, mouse helper, action helper will decide api seprately also improve helper according to need
 - note: work of pageholder , pause and wait is done(problem faced in optimising the code repretive work making it longer so used codex a bit to refactor)
-- next task should be assersion and all the other action helper then we can move to api
-- 
+- next task should be assertion and all the other action helper then we can move to api
+- so the base page is almost setup and base test is ready too now we will setup reporting in this
+- we can move to listener, api models, service layer after this
