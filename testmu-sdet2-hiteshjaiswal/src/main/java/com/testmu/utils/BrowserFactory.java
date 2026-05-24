@@ -28,7 +28,9 @@ public class BrowserFactory {
                 ChromeOptions options = new ChromeOptions();
                 if (isHeadlessExecution()) {
                     options.addArguments("--headless=new");
-                    options.addArguments("--disable-gpu");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--remote-allow-origins=*");
                 }
                 if (remoteUrl != null && !remoteUrl.isEmpty()) {
                     driver = new RemoteWebDriver(new URL(remoteUrl), options);

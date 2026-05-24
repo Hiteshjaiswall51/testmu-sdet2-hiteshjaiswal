@@ -1,35 +1,45 @@
 FROM maven:3.9.6-eclipse-temurin-17
 
-# Install required packages
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     curl \
+    wget \
     gnupg \
-    nodejs \
-    npm
+    unzip \
+    xvfb
 
-# Install json-server globally
+# Install latest NodeJS
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+
+RUN apt-get install -y nodejs
+
+# Install json-server
 RUN npm install -g json-server
+
+# Install Google Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+RUN apt-get install -y ./google-chrome-stable_current_amd64.deb
 
 # Create working directory
 WORKDIR /app
 
-# Copy framework files
+# Copy framework
 COPY . .
 
-# Install project dependencies
+# Install Maven dependencies
 RUN mvn clean install -DskipTests
 
-# Expose json-server port
+# Expose fake API port
 EXPOSE 3000
 
-# Start json-server -> execute framework -> show report location
+# Start fake API and execute tests
 CMD sh -c "\
 json-server --watch fakeapi.json --port 3000 & \
-sleep 10 && \
+sleep 15 && \
 mvn clean test -DsuiteXmlFile=testrum.xml ; \
-echo '=================================================' && \
+echo '=========================================' && \
 echo 'Execution Completed' && \
-echo 'Extent Report Location:' && \
-echo '/app/Reports/' && \
-echo '=================================================' \
+echo 'Reports Available Under /app/Reports' && \
+echo '=========================================' \
 "
