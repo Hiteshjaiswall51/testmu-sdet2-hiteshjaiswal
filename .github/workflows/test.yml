@@ -1,0 +1,45 @@
+name: TestMu Automation Framework
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+
+jobs:
+
+  automation-execution:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Pull Docker Image
+        run: docker pull hiteshjaiswalsdet/framework:testmudemo
+
+      - name: Run Automation Framework
+        run: |
+          docker run \
+          --name testmu-framework \
+          hiteshjaiswalsdet/framework:testmudemo
+
+      - name: Copy Reports From Container
+        if: always()
+        run: |
+          docker cp testmu-framework:/app/Reports ./Reports
+
+      - name: Upload Extent Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extent-report
+          path: Reports/
+
+      - name: Remove Container
+        if: always()
+        run: docker rm -f testmu-framework
