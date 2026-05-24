@@ -23,14 +23,14 @@ jobs:
       - name: Copy Reports
         if: always()
         run: |
-          docker cp framework:/app/Reports ./Reports
+          docker cp framework:/app/reports ./reports
 
-      - name: Upload Reports
+      - name: Upload Extent Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
-          path: Reports/
+          path: reports/
 
       - name: Stop Containers
         if: always()
