@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    ports:
+      - "4444:4444"
+
+  framework:
+    image: hiteshjaiswalsdet/framework:testmudemo
+    container_name: framework
+    depends_on:
+      - selenium

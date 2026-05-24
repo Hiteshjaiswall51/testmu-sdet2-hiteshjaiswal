@@ -6,8 +6,6 @@ on:
       - main
       - master
 
-  pull_request:
-
 jobs:
 
   automation-execution:
@@ -19,27 +17,21 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Pull Docker Image
-        run: docker pull hiteshjaiswalsdet/framework:testmudemo
+      - name: Start Containers
+        run: docker compose up --abort-on-container-exit
 
-      - name: Run Automation Framework
-        run: |
-          docker run \
-          --name testmu-framework \
-          hiteshjaiswalsdet/framework:testmudemo
-
-      - name: Copy Reports From Container
+      - name: Copy Reports
         if: always()
         run: |
-          docker cp testmu-framework:/app/Reports ./Reports
+          docker cp framework:/app/Reports ./Reports
 
-      - name: Upload Extent Reports
+      - name: Upload Reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: extent-report
           path: Reports/
 
-      - name: Remove Container
+      - name: Stop Containers
         if: always()
-        run: docker rm -f testmu-framework
+        run: docker compose down

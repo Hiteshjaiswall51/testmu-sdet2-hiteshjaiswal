@@ -23,7 +23,8 @@ public class BrowserFactory {
     public WebDriver getBrowserInstance(String browser) throws Exception {
         RemoteWebDriver driver= null;
         try {
-            String remoteUrl = System.getProperty("remote_url");
+//            String remoteUrl = System.getProperty("remote_url");
+            String remoteUrl = "http://localhost:4444/wd/hub";
             if(browser.equalsIgnoreCase("chrome")){
                 ChromeOptions options = new ChromeOptions();
                 if (isHeadlessExecution()) {
