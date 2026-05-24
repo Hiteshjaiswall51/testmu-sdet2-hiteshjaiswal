@@ -167,3 +167,8 @@ steps to run : in future we can variablise it but for ease we will manage everyt
 5) all the steps in the file will be executed
 
 ```
+
+clone repo
+mvn clean test  -DsuiteXmlFile=testrum.xml
+report will be generated 
+
