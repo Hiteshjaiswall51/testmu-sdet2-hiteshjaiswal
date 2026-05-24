@@ -6,4 +6,6 @@
 - i was facing some problem in the screenshot attached the core logic seem to be right but still there was a problem i used codex to fix it seem like a small issue.
 - i have create ui framework completely will create a api framwork as well
 - i will try to use codex to create docker file the stucture would be mine but the implmention i will use codex, it will reduce repetative work significantly
+- using ai to write my readme a bit better i will feed it more plan and instruction later
+  
   
