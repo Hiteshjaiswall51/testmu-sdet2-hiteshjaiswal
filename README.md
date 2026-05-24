@@ -156,3 +156,14 @@ If extended further, the framework can support:
 
 Hitesh Jaiswal
 ```
+
+
+```
+steps to run : in future we can variablise it but for ease we will manage everything from project.properties
+1) dockerfile is defined in the root
+2) build the dockerfile via this command docker build -t hiteshjaiswalsdet/framework:testmudemo .
+3) after build push this file docker push hiteshjaiswalsdet/framework:testmudemo
+4) the gitaction has a workflow written in .github which will run this file docker run hiteshjaiswalsdet/framework:testmudemo .
+5) all the steps in the file will be executed
+
+```
