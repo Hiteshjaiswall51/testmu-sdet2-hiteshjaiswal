@@ -1,47 +1,158 @@
 # testmu-sdet2-hiteshjaiswal
 
-# TechStack 
-- java 
-- maven
-- selenium
+Hybrid automation framework built for UI, API, and integration testing using Selenium, RestAssured, and TestNG.
+
+The goal of this framework is to create something maintainable and scalable instead of only writing test scripts. The framework is structured in a way where UI, API, reporting, utilities, and integrations can grow independently without tightly coupling everything together.
+
+---
+
+# Tech Stack
+
+- Java
+- Maven
+- Selenium WebDriver
 - RestAssured
 - TestNG
-- ExtendReports
+- ExtentReports
+- Log4j
 
-# framework architecture
-- ui
-- api
-- integration
-- pom designs
+---
 
-# planned feature
-- cross browser 
-- retry
-- remotewebdriver launch
-- ci/cd pipeline integration
+# Framework Structure
 
-# folder structure
-- main
-- helper
-- base
-- constant
-- listener
-- pages
-- report
-- utils
+```text
+src
+├── main
+│   ├── base
+│   ├── helper
+│   ├── constants
+│   ├── listener
+│   ├── pages
+│   ├── report
+│   └── utils
+│
+├── resources
+│   ├── testdata
+│   └── project.properties
+│
+├── test
+│   ├── ui
+│   ├── api
+│   └── integration
+```
 
-- resource/
-- testdata
-- project.properties
-- 
-- test/
-- ui
-- api
-- integration
+---
 
-# Run Structure
-- the xml file will be set as env variable in the pom
-- can be run with comman mvn clean test -DsuitexmlFile=<filename>
-- will try to create a selenium grid for this purpose and provide remote url to launch everything parallely in the pipeline
-- will have a json server launch at the time on installing this project can be used to run the api test as well
-  
+# Framework Design
+
+The framework is divided into 3 major layers:
+
+## UI Layer
+- Built using Page Object Model
+- Reusable page methods
+- Selenium helper methods abstracted from tests
+- Cross-browser execution support planned
+
+## API Layer
+- RestAssured based API automation
+- Service layer structure for reusable API methods
+- Response validation and schema validation support
+- Authentication and CRUD flow coverage
+
+## Integration Layer
+- Combines API + UI validations
+- Example:
+    - Create data through API
+    - Validate the same data from UI
+
+This reduces UI dependency and speeds up execution.
+
+---
+
+# Features Implemented
+
+- Page Object Model structure
+- Selenium helper utilities
+- Retry mechanism
+- Config driven execution
+- Extent report integration
+- Screenshot support on failure
+- API framework setup
+- Base classes for reusable setup
+- Cross-suite execution support using TestNG XML
+
+---
+
+# Reporting
+
+ExtentReports is used for execution reporting.
+
+Current report features:
+- Pass/fail status
+- Logs attached to report
+- Screenshot on failure
+- Execution timestamps
+
+Reports are generated under:
+
+/Reports
+```
+
+---
+
+# Running the Framework
+
+Run using Maven:
+
+mvn clean test -DsuiteXmlFile=testng.xml
+```
+
+Example:
+
+mvn clean test -DsuiteXmlFile=ui-suite.xml
+```
+
+---
+
+# Planned Improvements
+
+Some improvements still planned for the framework:
+
+- Selenium Grid support
+- Docker setup
+- Parallel execution
+- GitHub Actions pipeline
+- RemoteWebDriver execution
+- Better reporting dashboards
+- AI-assisted flaky test analysis
+
+---
+
+# Design Decisions
+
+## Why POM?
+To keep locators and page actions separated from test logic.
+
+## Why helper classes?
+To avoid duplicated Selenium code across tests.
+
+## Why combined UI + API framework?
+Keeping everything in one repo makes integration testing and CI/CD easier to manage.
+
+---
+
+# Future Scope
+
+If extended further, the framework can support:
+- Full CI/CD execution
+- Cloud execution
+- Dashboard analytics
+- Distributed execution
+- Performance testing integration
+
+---
+
+# Author
+
+Hitesh Jaiswal
+```
