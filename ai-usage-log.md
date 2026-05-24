@@ -7,5 +7,5 @@
 - i have create ui framework completely will create a api framwork as well
 - i will try to use codex to create docker file the stucture would be mine but the implmention i will use codex, it will reduce repetative work significantly
 - using ai to write my readme a bit better i will feed it more plan and instruction later
-  
+- so in this integration ai helped me at lot in debuggin and i had the idea of dockerfile how would it write it bused ai to do so, also ai helped me with api logs which was timetaking to set for me now
   
