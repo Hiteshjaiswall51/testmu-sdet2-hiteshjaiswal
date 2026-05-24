@@ -10,7 +10,7 @@ public class UiValidationPage extends BasePage {
     @FindBy(id = "name")
     private WebElement nameField;
 
-    @FindBy(id = "emasdsdsil")
+    @FindBy(id = "email")
     private WebElement emailField;
 
     @FindBy(id = "phone")
@@ -24,6 +24,10 @@ public class UiValidationPage extends BasePage {
         this.seleniumHelper.clearAndSetValue(emailField, email);
         this.seleniumHelper.click(phoneField);
         this.seleniumHelper.clearAndSetValue(phoneField, phone);
+    }
+
+    public boolean isUserDisplayed(String user){
+        return this.seleniumHelper.isElementPresent("//div['"+user+"']'");
     }
 
 }

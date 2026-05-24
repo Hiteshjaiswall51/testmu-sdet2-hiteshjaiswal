@@ -1,0 +1,35 @@
+FROM maven:3.9.6-eclipse-temurin-17
+
+# Install required packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    nodejs \
+    npm
+
+# Install json-server globally
+RUN npm install -g json-server
+
+# Create working directory
+WORKDIR /app
+
+# Copy framework files
+COPY . .
+
+# Install project dependencies
+RUN mvn clean install -DskipTests
+
+# Expose json-server port
+EXPOSE 3000
+
+# Start json-server -> execute framework -> show report location
+CMD sh -c "\
+json-server --watch fakeapi.json --port 3000 & \
+sleep 10 && \
+mvn clean test -DsuiteXmlFile=testrum.xml ; \
+echo '=================================================' && \
+echo 'Execution Completed' && \
+echo 'Extent Report Location:' && \
+echo '/app/Reports/' && \
+echo '=================================================' \
+"

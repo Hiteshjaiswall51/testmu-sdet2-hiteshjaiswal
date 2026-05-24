@@ -1,0 +1,262 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Hitesh Jaiswal",
+      "email": "hitesh@test.com",
+      "role": "SDET",
+      "active": true
+    },
+    {
+      "id": 2,
+      "name": "Rahul Sharma",
+      "email": "rahul@test.com",
+      "role": "Backend Engineer",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Priya Singh",
+      "email": "priya@test.com",
+      "role": "QA Engineer",
+      "active": false
+    },
+    {
+      "role": "Qa",
+      "name": "hitesh-new",
+      "active": "false",
+      "email": "hiteshnew@gmail.com",
+      "id": 4
+    },
+    {
+      "role": "Qa",
+      "name": "hitesh-neww",
+      "active": "false",
+      "email": "hiteshsnew@gmail.com",
+      "id": 5
+    },
+    {
+      "role": "Qa",
+      "name": "hitesh-neww",
+      "active": "false",
+      "email": "hiteshsnew@gmail.com",
+      "id": 6
+    },
+    {
+      "role": "Qa",
+      "name": "hitesh-neww",
+      "active": "false",
+      "email": "hiteshsnew@gmail.com",
+      "id": 7
+    },
+    {
+      "role": "Qa",
+      "name": "hitesh-neww",
+      "active": "false",
+      "email": "hiteshsnew@gmail.com",
+      "id": 8
+    },
+    {
+      "empty": false,
+      "mapType": "java.util.HashMap",
+      "id": 9
+    },
+    {
+      "empty": false,
+      "mapType": "java.util.HashMap",
+      "id": 10
+    },
+    {
+      "empty": false,
+      "mapType": "java.util.HashMap",
+      "id": 11
+    },
+    {
+      "empty": false,
+      "mapType": "java.util.HashMap",
+      "id": 12
+    },
+    {
+      "empty": false,
+      "mapType": "java.util.HashMap",
+      "id": 13
+    },
+    {
+      "empty": false,
+      "mapType": "java.util.HashMap",
+      "id": 14
+    },
+    {
+      "role": "Qa",
+      "name": "hiteshjaiswal",
+      "active": false,
+      "email": "hiteshsnew@gmail.com",
+      "id": 15
+    },
+    {
+      "role": "Qa",
+      "name": "hiteshjaiswal",
+      "active": false,
+      "email": "hiteshsnew@gmail.com",
+      "id": 16
+    },
+    {
+      "name": "hiteshjaiswalll",
+      "email": "hiteshjaiswall@opstree.com",
+      "role": "Qa",
+      "active": "active",
+      "id": 17
+    },
+    {
+      "name": "hiteshjaiswalll",
+      "email": "hiteshjaiswall@opstree.com",
+      "role": "Qa",
+      "active": "active",
+      "id": 18
+    },
+    {
+      "role": "SDET",
+      "name": "Hitesh Jaiswal random",
+      "active": true,
+      "email": "hitesh@test.com",
+      "id": 19
+    },
+    {
+      "role": "SDET",
+      "name": "Hitesh Jaiswal random",
+      "active": true,
+      "email": "hitesh@test.com",
+      "id": 20
+    },
+    {
+      "id": 21,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 22,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 23,
+      "name": "Hitesh Integration",
+      "email": "integration@test.com",
+      "role": "SDET",
+      "active": true
+    },
+    {
+      "id": 24,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 25,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 26,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 27,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 28,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 29,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 30,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    },
+    {
+      "id": 31,
+      "name": "hitesh jaiswa",
+      "email": "hiteshjaiswa@gmail.com",
+      "role": "sdet",
+      "active": "active"
+    }
+  ],
+  "products": [
+    {
+      "id": 101,
+      "name": "Mechanical Keyboard",
+      "price": 3500,
+      "stock": 15,
+      "category": "Electronics"
+    },
+    {
+      "id": 102,
+      "name": "Gaming Mouse",
+      "price": 1800,
+      "stock": 25,
+      "category": "Electronics"
+    },
+    {
+      "id": 103,
+      "name": "Monitor 27 Inch",
+      "price": 15000,
+      "stock": 8,
+      "category": "Electronics"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1001,
+      "userId": 1,
+      "productId": 101,
+      "quantity": 1,
+      "status": "Delivered"
+    },
+    {
+      "id": 1002,
+      "userId": 2,
+      "productId": 103,
+      "quantity": 2,
+      "status": "Pending"
+    }
+  ],
+  "employees": [
+    {
+      "id": 1,
+      "name": "Amit",
+      "department": "Engineering",
+      "salary": 80000
+    },
+    {
+      "id": 2,
+      "name": "Sneha",
+      "department": "QA",
+      "salary": 65000
+    }
+  ]
+}

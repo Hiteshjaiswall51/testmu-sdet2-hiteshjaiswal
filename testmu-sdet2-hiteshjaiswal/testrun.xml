@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="BuildPiper Test Suite">
+    <listeners>
+        <listener class-name="com.testmu.report.ExtentReportListener"></listener>
+    </listeners>
+    <!-- Application and Permission Tests Group -->
+    <test name="CompletTest" parallel="classes" thread-count="1">
+        <classes>
+            <class name="ui.UiBasicTest">
+                <methods>
+                    <include name="basicTestUi" />
+                </methods>
+            </class>
+            <class name="api.UserApiTest">
+                <methods>
+                    <include name="createUserTest" />
+                </methods>
+            </class>
+            <class name="integration.IntegrationTest">
+                <methods>
+                    <include name="createUserViaApiAndValidateInUI" />
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
