@@ -22,6 +22,10 @@ public class TestCase {
         this._testCaseName=methodName;
         this._testCaseModule=packageName;
     }
+
+    public TestCase() {
+    }
+
     public WebDriver getDriver() {
         return driver;
     }

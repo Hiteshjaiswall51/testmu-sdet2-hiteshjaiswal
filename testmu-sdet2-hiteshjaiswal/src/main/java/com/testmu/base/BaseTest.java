@@ -8,13 +8,16 @@ import io.restassured.specification.RequestSpecification;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-import org.testng.annotations.*;
-
-import java.lang.reflect.Method;
-import java.util.HashMap;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 public class BaseTest {
     protected final FrameworkConfig config = ConfigFactory.create(FrameworkConfig.class);
@@ -41,47 +44,23 @@ public class BaseTest {
             throws Exception {
         _session = new TestCase(method.getName(), method.getDeclaringClass().getPackage().getName());
         seleniumHelper.setDriver(_session);
-        beforeEachTest(method);
+//        this.seleniumHelper.launch(config.url());
+//        this.pageHolder.getDriver().navigate().refresh();
     }
 
     @AfterMethod(alwaysRun = true)
     public final void tearDownBaseTest(ITestResult result) throws Exception {
-        try {
-            afterEachTest(result);
-        } finally {
             Reporter.setCurrentTestResult(result);
+            if (result.getStatus() == ITestResult.FAILURE) {
+                String screenshotPath = seleniumHelper.captureScreenshot();
+                if (screenshotPath != null) {
+                    Reporter.log("<img src='" + screenshotPath + "' alt='Screenshot' width='500' height='400'>", true);
+                    Reporter.log("Screenshot attached: " + screenshotPath, true);
+                }
+            }
             System.out.println("Test Descpription: " + result.getMethod().getDescription());
             Log.info("####### End of Test Case: " + _session.get_testCaseName() + " #######");
             seleniumHelper.closeDriver();
-        }
     }
 
-    protected void beforeEachTest(Method method) throws Exception {
-        if (shouldLoginBeforeEachTest()) {
-            loginBeforeEachTest();
-        }
-    }
-
-    protected void afterEachTest(ITestResult result) throws Exception {
-    }
-
-    protected boolean shouldLoginBeforeEachTest() {
-        return true;
-    }
-
-    protected void loginBeforeEachTest() throws Exception {
-//        new LoginPage().login(config.username(), config.password());
-    }
-
-    @BeforeSuite
-    protected void setUp(ITestContext test) {
-    }
-
-    @AfterSuite
-    protected void setDown(ITestContext test) {
-    }
-
-    @AfterTest
-    public void tearDown() {
-    }
 }

@@ -1,7 +1,7 @@
 package com.testmu.helper;
 
-import org.testng.Assert;
 import groovy.util.logging.Log;
+import junit.framework.Assert;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -22,7 +22,7 @@ public class Assertion {
 
     public void fail(String message, Throwable throwable) {
         Log.info("Executing assertion: fail with message - " + message + " | throwable - " + throwable, 2);
-        Assert.fail(message + "\n", throwable);
+        Assert.fail(message + "\n");
     }
 
     public void assertTrue(boolean condition) {
@@ -39,7 +39,7 @@ public class Assertion {
     public void assertTrue(boolean condition, String customMessage) {
         Log.info("Executing assertion: assertTrue with condition - " + condition + " | message - " + customMessage, 2);
         try {
-            Assert.assertTrue(condition, "'" + customMessage + "'");
+            Assert.assertTrue("'" + customMessage + "'", condition);
             Log.info("Assertion passed: condition evaluated to true", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + customMessage, 2);
@@ -61,7 +61,7 @@ public class Assertion {
     public void assertFalse(boolean condition, String customMessage) {
         Log.info("Executing assertion: assertFalse with condition - " + condition + " | message - " + customMessage, 2);
         try {
-            Assert.assertFalse(condition, "'" + customMessage + "'");
+            Assert.assertFalse("'" + customMessage + "'", condition);
             Log.info("Assertion passed: condition evaluated to false", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + customMessage, 2);
@@ -77,7 +77,7 @@ public class Assertion {
     public void assertEquals(int actual, int expected, String message) {
         Log.info("Executing assertion: assertEquals(int, int) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertEquals(actual, expected, message + "\n");
+            Assert.assertEquals(actual, expected, Double.parseDouble(message + "\n"));
             Log.info("Assertion passed: actual value matched expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -93,7 +93,7 @@ public class Assertion {
     public void assertEquals(double actual, double expected, String message) {
         Log.info("Executing assertion: assertEquals(double, double) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertEquals(actual, expected, message + "\n");
+            Assert.assertEquals(actual, expected, Double.parseDouble(message + "\n"));
             Log.info("Assertion passed: actual value matched expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -104,7 +104,7 @@ public class Assertion {
     public void assertEquals(double actual, double expected, double delta, String message) {
         Log.info("Executing assertion: assertEquals(double, double, delta) | actual - " + actual + " | expected - " + expected + " | delta - " + delta + " | message - " + message, 2);
         try {
-            Assert.assertEquals(actual, expected, delta, message + "\n");
+            Assert.assertEquals(actual, expected, delta);
             Log.info("Assertion passed: actual value matched expected value within delta", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -136,7 +136,7 @@ public class Assertion {
     public void assertEquals(boolean actual, boolean expected, String message) {
         Log.info("Executing assertion: assertEquals(boolean, boolean) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertEquals(actual, expected, message + "\n");
+            Assert.assertEquals(actual, expected);
             Log.info("Assertion passed: actual value matched expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -152,7 +152,7 @@ public class Assertion {
     public void assertEquals(List<String> actual, List<String> expected, String message) {
         Log.info("Executing assertion: assertEquals(List, List) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertEquals(actual, expected, message + "\n");
+            Assert.assertEquals(actual.toString(), expected, message + "\n");
             Log.info("Assertion passed: actual list matched expected list", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -168,7 +168,7 @@ public class Assertion {
     public void assertEquals(Object actual, Object expected, String message) {
         Log.info("Executing assertion: assertEquals(Object, Object) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertEquals(actual, expected, message + "\n");
+            Assert.assertEquals(actual.toString(), expected, message + "\n");
             Log.info("Assertion passed: actual value matched expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -184,7 +184,7 @@ public class Assertion {
     public void assertNotEquals(int actual, int expected, String message) {
         Log.info("Executing assertion: assertNotEquals(int, int) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertNotEquals(actual, expected, message + "\n");
+            Assert.assertNotSame(actual , expected );
             Log.info("Assertion passed: actual value did not match expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -200,7 +200,7 @@ public class Assertion {
     public void assertNotEquals(double actual, double expected, String message) {
         Log.info("Executing assertion: assertNotEquals(double, double) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertNotEquals(actual, expected, message + "\n");
+            Assert.assertNotSame(actual , expected );
             Log.info("Assertion passed: actual value did not match expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -216,7 +216,7 @@ public class Assertion {
     public void assertNotEquals(String actual, String expected, String message) {
         Log.info("Executing assertion: assertNotEquals(String, String) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertNotEquals(actual, expected, message + "\n");
+            Assert.assertNotSame(actual , expected );;
             Log.info("Assertion passed: actual value did not match expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -232,7 +232,7 @@ public class Assertion {
     public void assertNotEquals(boolean actual, boolean expected, String message) {
         Log.info("Executing assertion: assertNotEquals(boolean, boolean) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertNotEquals(actual, expected, message + "\n");
+            Assert.assertNotSame(actual , expected );
             Log.info("Assertion passed: actual value did not match expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -248,7 +248,7 @@ public class Assertion {
     public void assertNotEquals(Object actual, Object expected, String message) {
         Log.info("Executing assertion: assertNotEquals(Object, Object) | actual - " + actual + " | expected - " + expected + " | message - " + message, 2);
         try {
-            Assert.assertNotEquals(actual, expected, message + "\n");
+            Assert.assertNotSame(actual , expected );
             Log.info("Assertion passed: actual value did not match expected value", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -264,7 +264,7 @@ public class Assertion {
     public void assertNull(Object object, String message) {
         Log.info("Executing assertion: assertNull | object - " + object + " | message - " + message, 2);
         try {
-            Assert.assertNull(object, message + "\n");
+            Assert.assertNull(object);
             Log.info("Assertion passed: object is null", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);
@@ -280,7 +280,7 @@ public class Assertion {
     public void assertNotNull(Object object, String message) {
         Log.info("Executing assertion: assertNotNull | object - " + object + " | message - " + message, 2);
         try {
-            Assert.assertNotNull(object, message + "\n");
+            Assert.assertNotNull(object);
             Log.info("Assertion passed: object is not null", 2);
         } catch (AssertionError assertionError) {
             Log.info("Assertion failed: " + message, 2);

@@ -5,15 +5,16 @@ import com.testmu.utils.BrowserFactory;
 import com.testmu.utils.DriverFactory;
 import com.testmu.utils.FrameworkConfig;
 import com.testmu.utils.Pause;
+import com.testmu.utils.ReportUtility;
+import junit.framework.Assert;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.io.FileHandler;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.Assert;
-import org.testng.Reporter;
-
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
@@ -46,7 +47,7 @@ public boolean clickIfPresent(WebElement element) {
 
         if (waitHelper.isElementPresent(element, Pause.MEDIUM)) {
             click(element);
-            Log.info("Clicked on " + getCleanLocator(element), 2);
+            report("Clicked on " + getCleanLocator(element));
             return true;
         }
 
@@ -62,33 +63,27 @@ public boolean clickIfPresent(WebElement element) {
 }
 
 public void click(WebElement element) {
-    Log.info("Waiting to Click on " + getCleanLocator(element), 2);
+    String locator = getCleanLocator(element);
+    report("Waiting to click on " + locator);
     try {
-        WebElement visibleElement = waitHelper.waitForElementToDisplay(element, Long.parseLong(Pause.HIGH));
-        waitHelper.waitTillElementIsVisibleAndClickable(element);
+        WebElement visibleElement = waitUntilClickable(element, Pause.SMALL);
         javaScriptExecutor.scrollToElement(visibleElement).click();
-        Log.info("Clicked on " + getCleanLocator(element), 2);
+        report("Clicked on " + locator);
     } catch (Exception e) {
-        try {
-            WebElement visibleElement = waitHelper.waitForElementToDisplay(element, Long.parseLong(Pause.HIGH));
-            javaScriptExecutor.javaScriptClick(visibleElement);
-            Log.info("Clicked through Javascript on :" + getCleanLocator(element), 2);
-        } catch (Exception t) {
-            WebElement healedElement = selfHealingLocator.healFromElement(element, "click");
-            if (healedElement != null) {
-                try {
-                    javaScriptExecutor.scrollToElement(healedElement).click();
-                    Log.info("Clicked self-healed element for " + getCleanLocator(element), 2);
-                    return;
-                } catch (Exception clickException) {
-                    javaScriptExecutor.javaScriptClick(healedElement);
-                    Log.info("Clicked self-healed element through Javascript for " + getCleanLocator(element), 2);
-                    return;
-                }
+        WebElement healedElement = selfHealingLocator.healFromElement(element, "click");
+        if (healedElement != null) {
+            try {
+                WebElement visibleElement = waitUntilClickable(healedElement, Pause.SMALL);
+                javaScriptExecutor.scrollToElement(visibleElement).click();
+                report("Clicked self-healed element for " + locator);
+                return;
+            } catch (Exception clickException) {
+                report("Self-healed click failed for " + locator + " | " + clickException.getMessage());
             }
-            System.out.println(t);
-            Log.info("Unable to click on " + getCleanLocator(element), 2);
         }
+        String message = "Unable to click on " + locator + " | " + e.getMessage();
+        report(message);
+        Assert.fail(message);
     }
 }
 
@@ -131,14 +126,21 @@ public void clickNoWait(WebElement element, String fieldName) {
 }
 
 public String captureScreenshot() {
-    String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
-    TakesScreenshot ts = (TakesScreenshot) pageHolder.getDriver();
-    String destination = System.getProperty("user.dir") + dateName + ".png";
     try {
+        if (pageHolder.getDriver() == null) {
+            return null;
+        }
+        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        TakesScreenshot ts = (TakesScreenshot) pageHolder.getDriver();
+        String fileName = "screenshot_" + dateName + ".png";
+        File screenshotDirectory = new File(System.getProperty("user.dir"), "reports/extent/screenshots");
+        if (!screenshotDirectory.exists()) {
+            screenshotDirectory.mkdirs();
+        }
         File source = ts.getScreenshotAs(OutputType.FILE);
-        File finalDestination = new File(destination);
+        File finalDestination = new File(screenshotDirectory, fileName);
         FileHandler.copy(source, finalDestination);
-        return destination;
+        return "screenshots/" + fileName;
     } catch (Exception e) {
         return null;
     }
@@ -148,7 +150,7 @@ public boolean isSelected(WebElement element) {
     try {
         return javaScriptExecutor.scrollToElement(element).isSelected();
     } catch (Exception e) {
-        Reporter.log("Unable to fetch the isSelected status of the element", 0, true);
+        Log.info("Unable to fetch the isSelected status of the element", 0, true);
         return false;
     }
 }
@@ -171,7 +173,7 @@ public void setValue(WebElement element, String fieldName, String valueToBeSent)
     String targetName = (fieldName != null && !fieldName.trim().isEmpty()) ? fieldName : getCleanLocator(element);
     try {
         if (valueToBeSent == null) {
-            Reporter.log("Value for Element " + targetName + " is null");
+            Log.info("Value for Element " + targetName + " is null");
             Assert.fail("Value for Element " + targetName + " is null");
         }
 
@@ -179,14 +181,14 @@ public void setValue(WebElement element, String fieldName, String valueToBeSent)
         waitHelper.waitTillElementIsVisibleAndClickable(element);
         element.clear();
         element.sendKeys(valueToBeSent);
-        Log.info("Entered value on " + targetName + " : " + valueToBeSent, 2);
+        report("Entered value on " + targetName + " : " + valueToBeSent);
     } catch (Exception e) {
         try {
             waitHelper.waitForElementToDisplay(element, Long.parseLong(Pause.MEDIUM));
             waitHelper.waitTillElementIsVisibleAndClickable(element);
             element.clear();
             element.sendKeys(valueToBeSent);
-            Log.info("Entered value after retry on " + targetName, 2);
+            report("Entered value after retry on " + targetName);
         } catch (Exception t) {
             WebElement healedElement = selfHealingLocator.healFromElement(element, "setValue");
             if (healedElement != null) {
@@ -255,10 +257,10 @@ public boolean hasDriverQuit() {
 }
 
 public void launch(String url) throws Exception {
-    Log.info("Open URL:" + url, 2);
+    report("Open URL: " + url);
     setDriver(null);
     pageHolder.getDriver().get(url);
-    pageHolder.getDriver().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    pageHolder.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
 }
 
 public void closeDriver() {
@@ -277,7 +279,7 @@ public boolean isElementPresent(String xpath) {
     try {
         return pageHolder.getDriver().findElements(By.xpath(xpath)).size() >= 1;
     } catch (Exception e) {
-        Reporter.log("element is not present on screen", 2, true);
+        Log.info("element is not present on screen", 2, true);
         return false;
     }
 }
@@ -296,7 +298,7 @@ public boolean isElementPresent(By locator) {
         return !driver.findElements(locator).isEmpty();
 
     } finally {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
     }
 }
 
@@ -305,40 +307,52 @@ public WebElement scrollToElement(WebElement element) {
 }
 
 public void clearAndSetValue(WebElement element, String value) {
+    String locator = getCleanLocator(element);
     try {
-        waitHelper.waitForElementToDisplay(element, Long.parseLong(Pause.MEDIUM));
-        waitHelper.waitTillElementIsVisibleAndClickable(element);
+        WebElement input = waitUntilClickable(element, Pause.SMALL);
 
         if (value == null) {
             Log.error("Provided string value is null");
             return;
         }
 
-        element.click();
+        input.click();
 
         // Select all + delete
-        element.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        element.sendKeys(Keys.DELETE);
+        input.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        input.sendKeys(Keys.DELETE);
 
         // Fallback if still not cleared
-        if (!element.getAttribute("value").isEmpty()) {
-            element.clear();
+        if (!input.getAttribute("value").isEmpty()) {
+            input.clear();
         }
 
-        element.sendKeys(value);
+        input.sendKeys(value);
+        report("Entered value on " + locator + " : " + value);
     } catch (Exception e) {
         WebElement healedElement = selfHealingLocator.healFromElement(element, "setValue");
         if (healedElement != null) {
             clearAndSetValue(healedElement, value);
             return;
         }
-        Log.error("Unable to clear and set value on " + getCleanLocator(element) + " | " + e.getMessage());
-        Assert.fail("Unable to clear and set value on " + getCleanLocator(element) + " EXCEPTION DETAILS: " + e);
+        String message = "Unable to clear and set value on " + locator + " | " + e.getMessage();
+        report(message);
+        Assert.fail(message);
     }
 }
 
 public void clearAndSetValue(String xpath, String value) {
     clearAndSetValue(getElementWithXpath(xpath), value);
+}
+
+private void report(String message) {
+    Log.info(message);
+    ReportUtility.log(message);
+}
+
+private WebElement waitUntilClickable(WebElement element, String timeoutSeconds) {
+    WebDriverWait wait = new WebDriverWait(pageHolder.getDriver(), Pause.duration(timeoutSeconds));
+    return wait.until(ExpectedConditions.elementToBeClickable(element));
 }
 
 public void clearSetValueAndPressKey(WebElement element, String value, CharSequence... keys) {
@@ -405,10 +419,10 @@ public String getText(WebElement element) {
 
 public String getValue(WebElement element) {
     try {
-        Reporter.log("Fetched value of the object", 2, true);
+        Log.info("Fetched value of the object", 2, true);
         return element.getAttribute("value");
     } catch (Exception e) {
-        Reporter.log("Unable to Fetch value of the object", 2, true);
+        Log.info("Unable to Fetch value of the object", 2, true);
         return null;
     }
 }
@@ -529,9 +543,9 @@ public void verifyElementPresent(WebElement element, String fieldName) {
 public void verifyElementNotPresent(WebElement element) {
     try {
         waitHelper.waitForElementToDisplay(element, Long.parseLong(Pause.MEDIUM));
-        Assert.assertFalse(isElementDisplay(element), element + " Not Present");
+        Assert.assertFalse(element + " Not Present", isElementDisplay(element));
     } catch (Exception e) {
-        Reporter.log("Element :" + element + " Not Present");
+        Log.info("Element :" + element + " Not Present");
     }
 }
 

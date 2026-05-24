@@ -16,15 +16,15 @@ public class DriverFactory {
         return driver.get();
     }
     public boolean isDriverExist(){
-        if(getInstance() == null){
-            return false;
-        }
-        return true;
+        return driver.get() != null;
     }
     public void setDriver(WebDriver driverParm) {
         driver.set(driverParm);
     }
     public void closeBrowser() {
+        if (driver.get() == null) {
+            return;
+        }
             driver.get().quit();
             driver.remove();
     }

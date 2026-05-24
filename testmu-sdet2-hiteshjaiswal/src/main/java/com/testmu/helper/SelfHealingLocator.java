@@ -1,4 +1,6 @@
 package com.testmu.helper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -30,6 +32,7 @@ public class SelfHealingLocator {
     private static final int MIN_SCORE_MARGIN = 8;
 
     private final PageHolder pageHolder = new PageHolder();
+    private static Logger Log = LogManager.getLogger(SelfHealingLocator.class.getName());
 
     public WebElement healFromXpath(String originalXpath, String action) {
         if (!isEnabled() || originalXpath == null || originalXpath.trim().isEmpty()) {
@@ -88,7 +91,7 @@ public class SelfHealingLocator {
     }
 
     private boolean isEnabled() {
-        return Boolean.parseBoolean(System.getProperty("self.heal.locators", "true"));
+        return Boolean.parseBoolean(System.getProperty("self.heal.locators", "false"));
     }
 
     @SuppressWarnings("unchecked")
